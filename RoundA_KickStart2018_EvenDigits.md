@@ -1,3 +1,15 @@
+# 題目: Even Digits (8pts, 15pts) [link](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050edf/00000000000510ed)
+
+> 使用語言: Python3
+>
+> 提示: 
+>
+>   1. 判斷每一位數都是偶數（貪婪法無法處理 Large dataset）
+>
+>   2. 加法取得最近偶數: 遇到九進位該如何處理? 
+>
+>   3. 減法取得最近偶數: 最大位數變成零的狀況如何處理?
+
 ```python
 def generate_digitList(i):
     ilist = []
@@ -101,7 +113,7 @@ for i in range(1, t + 1):
 ```
 
 Practice Submissions: 
-> Attempt 5 | check, check | Feb 10 2019, 00:14
+> Attempt 5 | **check, check** | Feb 10 2019, 00:14
 >
 
 Online IDE: https://www.jdoodle.com/python3-programming-online
