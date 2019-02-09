@@ -32,22 +32,39 @@ def add_process(i):
     iList = generate_digitList(i)
     ilen = len(iList)
     afterodd = False
+    roundUp = False
     for dig in range(ilen-1,-1,-1):
         iseven = check_odd(iList[dig])
         if afterodd:
             iList[dig] = 0
         elif (afterodd==False) and (iseven==False):
             afterodd = True
-            ### odd:
             if iList[dig] == 9:
                 if ilen-1 == dig:
-                    # odd in first place
+                    # odd in first place: 900 -> 2000
                     iList.append(2)
-                    print("append 2 ", iList)
+                    # print("append 2 ", iList)
                     iList[dig] = 0
                 else:
-                    iList[dig+1] += 2
+                    ### befor dig must be even: 88892 -> 200000, 246892 -> 248000
                     iList[dig] = 0
+                    ### loop to check if thenumber need to round up:
+                    if iList[dig+1] == 8:
+                        roundUp = True
+                        for roundup_i in range(dig+1, ilen,1):
+                            if roundUp and iList[roundup_i] == 8:
+                                if roundup_i == ilen-1:
+                                    ### The Last one is 8, so going to round up: 89 -> 200
+                                    iList[roundup_i] = 0
+                                    iList.append(2)
+                                else:
+                                    iList[roundup_i] = 0
+                                    roundUp = True
+                            elif roundUp and iList[roundup_i] != 8:
+                                iList[roundup_i] += 2
+                                roundUp = False
+                    else:
+                        iList[dig+1] += 2
             else:
                 iList[dig] += 1
     nextEven = generateNum(iList)
@@ -66,7 +83,7 @@ def minus_process(i):
             iList[dig] = 8
         elif (afterodd==False) and (iseven==False):
             afterodd = True
-            ### odd:
+            ### deal with odd: 122 -> 088
             iList[dig] -= 1
     nextEven = generateNum(iList)
     print('nextEven (-) : ', nextEven)
