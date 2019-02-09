@@ -99,4 +99,9 @@ for i in range(1, t + 1):
     ans = add_ans if add_ans <= minus_ans else minus_ans
     print("Case #{}: {}".format(i, ans))
 ```
-https://www.jdoodle.com/python3-programming-online
+
+Practice Submissions: 
+> Attempt 5 | check, check | Feb 10 2019, 00:14
+>
+
+Online IDE: https://www.jdoodle.com/python3-programming-online
