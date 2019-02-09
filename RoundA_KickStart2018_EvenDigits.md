@@ -1,16 +1,4 @@
 ```python
-def check_odd(i):
-    last_dig = i % 10
-    if i >= 10:
-        if last_dig % 2 == 0:
-            check_odd(i//10)
-        else:
-            return False
-    elif last_dig % 2 == 0:
-        return True
-    else:
-        return False
-
 def generate_digitList(i):
     ilist = []
     while i >= 10:
@@ -18,6 +6,18 @@ def generate_digitList(i):
         i = i // 10
     ilist.append(i)
     return ilist
+
+def is_even_num(i):
+    while i >= 10:
+        iLastdig = i % 10
+        if iLastdig % 2 != 0:
+            return False
+        i = i // 10
+    return True if i % 2 == 0 else False
+
+
+def is_even(n):
+    return True if n % 2 == 0 else False
 
 def generateNum(iList):
     i = 1
@@ -28,13 +28,12 @@ def generateNum(iList):
     return ans
 
 def add_process(i):
-    # if N=86912, then Y=88000.
     iList = generate_digitList(i)
     ilen = len(iList)
     afterodd = False
     roundUp = False
     for dig in range(ilen-1,-1,-1):
-        iseven = check_odd(iList[dig])
+        iseven = is_even(iList[dig])
         if afterodd:
             iList[dig] = 0
         elif (afterodd==False) and (iseven==False):
@@ -43,7 +42,6 @@ def add_process(i):
                 if ilen-1 == dig:
                     # odd in first place: 900 -> 2000
                     iList.append(2)
-                    # print("append 2 ", iList)
                     iList[dig] = 0
                 else:
                     ### befor dig must be even: 88892 -> 200000, 246892 -> 248000
@@ -68,17 +66,16 @@ def add_process(i):
             else:
                 iList[dig] += 1
     nextEven = generateNum(iList)
-    print('nextEven (+) : ', nextEven)
+    # print('nextEven (+) : ', nextEven)
     return nextEven-i
 
     
 def minus_process(i):
-    # if N=4436271, then X=4428888.
     iList = generate_digitList(i)
     ilen = len(iList)
     afterodd = False
     for dig in range(ilen-1,-1,-1):
-        iseven = check_odd(iList[dig])
+        iseven = is_even(iList[dig])
         if afterodd:
             iList[dig] = 8
         elif (afterodd==False) and (iseven==False):
@@ -86,20 +83,17 @@ def minus_process(i):
             ### deal with odd: 122 -> 088
             iList[dig] -= 1
     nextEven = generateNum(iList)
-    print('nextEven (-) : ', nextEven)
+    # print('nextEven (-) : ', nextEven)
     return i-nextEven
     
 ### main:
-# For example, if N=4436271, 
-# then X=4428888. (-7383)
-# others X=4440000 (+3729)
 t = int(input())
-add_ans = 0
-minus_ans = 0
 for i in range(1, t + 1):
+    add_ans = 0
+    minus_ans = 0
     inputN = int(input())
-    print('inputN: ', inputN)
-    if not check_odd(inputN):
+    # print('---\ninputN: ', inputN)
+    if is_even_num(inputN) == False:
         add_ans = add_process(inputN)
         minus_ans = minus_process(inputN)
     ans = add_ans if add_ans <= minus_ans else minus_ans
